@@ -35,7 +35,7 @@ public class BookingEntity {
     private LocalDate checkIn;
     @Column(name = "checkOut_time")
     private LocalDate checkOut;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
     @Column(name = "booking_amount")
     private Double bookingAmount;
