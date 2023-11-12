@@ -23,6 +23,8 @@
     <module>payment-service</module>
     <module>hotel-service-registry</module>
     <module>notification-service</module>
+      <module>commons</module>
+    <module>api-gateway</module>
   </modules>
 
   <dependencies>
