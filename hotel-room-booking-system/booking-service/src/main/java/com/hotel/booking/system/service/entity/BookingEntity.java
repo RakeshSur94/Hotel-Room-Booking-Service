@@ -30,7 +30,7 @@ public class BookingEntity {
     @Column(length = 25,name = "email_id")
     private String emailId;
     @Column(length = 10,name = "mobile_number")
-    private Long mobNumber;
+    private String mobNumber;
     @Column(name = "checkIn_time")
     private LocalDate checkIn;
     @Column(name = "checkOut_time")

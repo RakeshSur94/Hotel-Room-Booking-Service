@@ -1,6 +1,7 @@
 package com.hotel.booking.system.payment.service.impl;
 
 import com.hotel.booking.system.payment.service.entity.PaymentEntity;
+import com.hotel.booking.system.payment.service.kafka.publisher.PaymentResponseKafkaPublisher;
 import com.hotel.booking.system.payment.service.paymentgateway.StripePaymentGateway;
 import com.hotel.booking.system.payment.service.repository.IPaymentRepository;
 import com.hotel.booking.system.payment.service.service.IPaymentService;
@@ -22,9 +23,12 @@ public class PaymentServiceImpl implements IPaymentService {
     private IPaymentRepository paymentRepository;
     @Autowired
     private StripePaymentGateway stripePaymentGateway;
+
+    @Autowired
+    private PaymentResponseKafkaPublisher publisher;
     @Override
     @Transactional
-    public BookingDTO makePayment(BookingDTO bookingDTO) {
+    public void processPayment(BookingDTO bookingDTO) {
         log.info(LoggerConstants.ENTERED_SERVICE_MESSAGE.getValue(),"make-payment",this.getClass());
         PaymentEntity paymentEntity=PaymentEntity.builder()
                 .paymentAmount(bookingDTO.getBookingAmount())
@@ -45,8 +49,9 @@ public class PaymentServiceImpl implements IPaymentService {
             bookingDTO.setBookingStatus(BookingStatus.CANCELLED);
 
         }
-        System.out.println(this.paymentRepository.getClass().getName());
+        this.publisher.publishPaymentResponseTopicToBookings(bookingDTO);
 
-        return bookingDTO;
+
     }
+
 }

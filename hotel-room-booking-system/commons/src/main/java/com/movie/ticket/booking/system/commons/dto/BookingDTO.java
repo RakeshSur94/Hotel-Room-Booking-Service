@@ -30,7 +30,7 @@ public class BookingDTO {
     @Email(message = "Enter valid emil id")
     private String emailId;
     @NotBlank(message = "mobile number is mandatory and it cannot be blank")
-    private Long mobNumber;
+    private String mobNumber;
     @NotNull(message = "checkIn time is mandatory")
     private LocalDate checkIn;
     @NotNull(message = "checkOut time is mandatory")
